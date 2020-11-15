@@ -4,8 +4,7 @@ This addon is based on https://github.com/hassio-addons/addon-appdaemon out of a
 ## Setup
 
 1. Checkout this repository.
-2. Download appdaemon's source code from https://github.com/AppDaemon/appdaemon/ and then copy `appdaemon-dev` here. If you name the folder anything 
-else, then adjust the same in Dockerfile.
+2. Download appdaemon's source code from https://github.com/AppDaemon/appdaemon/ and copy all the content from `appdaemon` folder into `appdaemon_src`.
 3. Manually apply the 2 patches from `rootfs\patches` folder.
 4. Copy the entire folder to HomeAssistant's addons folder, a new addon named `AppDaemon 4 (modified)` should appear.
 

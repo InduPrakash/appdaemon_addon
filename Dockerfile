@@ -11,7 +11,7 @@ COPY requirements.txt /tmp/
 # We need to copy in the patches need during build
 COPY rootfs/patches /patches
 
-COPY appdaemon-dev /appdaemon-dev
+COPY appdaemon_src /appdaemon_src
 
 # Setup base
 ARG BUILD_ARCH=amd64
@@ -31,16 +31,18 @@ RUN \
         --no-cache-dir \
         --prefer-binary \
         --find-links "https://wheels.home-assistant.io/alpine-3.12/${BUILD_ARCH}/" \
-        -r /tmp/requirements.txt
-
-RUN cd /appdaemon-dev/ && python3 setup.py install
-
-RUN find /usr/local \
+        -r /tmp/requirements.txt \
+    \
+    && cd /appdaemon_src/ && python3 setup.py install \
+    \
+    && find /usr/local \
         \( -type d -a -name test -o -name tests -o -name '__pycache__' \) \
         -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-        -exec rm -rf '{}' +
-    
-RUN apk del --no-cache --purge .build-dependencies
+        -exec rm -rf '{}' + \
+    \
+    && apk del --no-cache --purge .build-dependencies \
+    \
+    && rm -rf /appdaemon_src
 
 
 # Copy root filesystem
